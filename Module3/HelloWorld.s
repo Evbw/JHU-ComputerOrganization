@@ -1,15 +1,16 @@
 .text
 .global main
+
 main:
-	SUB sp, sp, #4
-	STR lr, [sp]
+    SUB sp, sp, #4
+    STR lr, [sp]
 
-	LDR r0, =helloWorld
-	BL printf
+    LDR r0, =helloWorld
+    BL printf
 
-	LDR lr, [sp]
-	ADD sp, sp, #4
-	MOV pc, lr
+    LDR lr, [sp]
+    ADD sp, sp, #4
+    MOV pc, lr
+
 .data
-: .asciz "Hello World!\n"
-#End main
+    helloWorld: .asciz "Hello World\n"
