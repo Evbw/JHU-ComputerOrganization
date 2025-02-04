@@ -11,5 +11,5 @@ main:
 	ADD sp, sp, #4
 	MOV pc, lr
 .data
-: .asciz "Hello World\n"
+: .asciz "Hello World!\n"
 #End main
