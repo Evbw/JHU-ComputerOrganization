@@ -5,6 +5,18 @@
 	SUB sp, sp, #4
 	STR lr, [sp, #0]
 
+	LDR r0, =prompt1
+	BL printf
+
+	LDR r0, =format1
+	LDR r1, =num1
+	BL scanf
+
+	LDR r0, =output1
+	LDR r1, =num1
+	LDR r1, [r1, #0]
+	BL printf
+
 	LDR lr, [sp, #0]
 	ADD sp, sp, #4
 	MOV pc, lr
