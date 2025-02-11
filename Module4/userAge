@@ -1,0 +1,16 @@
+#
+#
+#
+.text
+	SUB sp, sp, #4
+	STR lr, [sp, #0]
+
+	LDR lr, [sp, #0]
+	ADD sp, sp, #4
+	MOV pc, lr
+
+.data
+	prompt1: .asciz "Please enter your age: "
+	format1: .asciz "%d"
+	num1:	 .word  0
+	output1: .asciz "Your age is %d\n"
