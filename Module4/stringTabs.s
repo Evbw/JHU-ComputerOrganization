@@ -7,15 +7,16 @@ main:
 	SUB sp, sp, #4
 	STR lr, [sp, #0]
 
-	LDR r0, =prompt1
+	LDR r0, =prompt
 	BL printf
 
-	LDR r0, =num1
+	LDR r0, =input
+	LDR r1, =num
 	BL scanf
 
-	LDR r0, =output1
-	LDR r1, =num1
-	LDR r2, =message1
+	LDR r0, =output
+	LDR r1, =num
+	LDR r1, [r1, #0]
 	BL printf
 
 	LDR lr, [sp, #0]
@@ -23,7 +24,7 @@ main:
 	MOV pc, lr
 
 .data
-	prompt1: .asciz "Please enter a number:\n"
-	num1: .asciz "%d"
-	output1: .asciz "The number you chose is\t\n"
-	message1: .asciz "\tAnd a tab on this side to verify\n"
+	num: .word 0
+	prompt: .asciz "Please enter a number:\n"
+	input: .asciz "%d"
+	output: .asciz "The number you chose is (tabbed)\t%d\tAnd a tab on this side to verify\n"
