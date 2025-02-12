@@ -11,10 +11,11 @@ main:
 	BL printf
 
 	LDR r0, =input
+	LDR r1, =sentence
 	BL scanf
 
 	LDR r0, =output
-	LDR r0, [r0, #0]
+	LDR r1, =sentence
 	BL printf
 
 	LDR lr, [sp, #0]
@@ -22,6 +23,7 @@ main:
 	MOV pc, lr
 
 .data
-	prompt: .asciz "Enter a string so I can put quotes around it\n"
-	input: .asciz "%s"
-	output: .asciz "%s"	
+	prompt: .asciz "Enter a sentence so I can put quotes around it\n"
+	input: .asciz "%99[ ]"
+	output: .asciz "You typed the following: %s\n"
+	sentence: .space 99
