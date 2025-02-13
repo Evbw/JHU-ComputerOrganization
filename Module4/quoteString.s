@@ -24,6 +24,6 @@ main:
 
 .data
 	prompt: .asciz "Enter a sentence so I can put quotes around it\n"
-	input: .asciz "%s"
+	input: .asciz "%[^\n]"
 	output: .asciz "You typed the following: \"%s\"\n"
 	sentence: .space 99
