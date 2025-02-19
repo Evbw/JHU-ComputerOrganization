@@ -15,6 +15,12 @@ main:
 	LDR r1, =num1
 	BL scanf
 
+	LDR r0, =num1
+	LDR r0, [r0]
+	MOV r1, #12
+	MUL r0, r0, r1
+	MOV r5, r0		//Total inches so far in r5
+
 	LDR r0, =prompt2
 	BL printf
 
@@ -22,10 +28,9 @@ main:
 	LDR r1, =num2
 	BL scanf
 
-	LDR r1, =num1
-	LDR r1, [r1]
-	LDR r2, =num2
-	LDR r2, [r2]
+	LDR r0, =num2
+	LDR r0, [r0]
+	ADD r1, r0, r5
 
 	LDR r0, =output
 	BL printf
@@ -35,11 +40,11 @@ main:
 	MOV pc, lr
 
 .data
-	prompt1: .asciz "Please enter a number of feet to convert them to feet (and leftover inches):\n"
+	prompt1: .asciz "Please enter a number of feet to convert them to inches:\n"
 	prompt2: .asciz "If you have any additional inches, add them here:\n"
 	input: .asciz "%d"
 	num1: .word 0
 	num2: .word 0
-	output: .asciz "The first number was %d and the second number was %d\n"
+	output: .asciz "The total number of inches is %d\n"
 
 
