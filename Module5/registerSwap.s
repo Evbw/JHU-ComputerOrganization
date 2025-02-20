@@ -6,7 +6,7 @@
 
 main:
 	SUB sp, sp, #4
-	STR sp, [sp, #0]
+	STR lr, [sp, #0]
 
 	LDR r0, =prompt
 	BL printf
@@ -38,7 +38,7 @@ main:
 	LDR r0, =output
 	BL printf
 
-	LDR sp, [sp, #0]
+	LDR lr, [sp, #0]
 	ADD sp, sp, #4
 	MOV pc, lr
 
