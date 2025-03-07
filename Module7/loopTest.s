@@ -10,21 +10,22 @@ main:
 	BL printf
 
 	LDR r0, =input
-	LDR r1, =num
+	LDR r1, =num1
 	BL scanf	
 
-	LDR r1, =num
-	LDR r7, [r1, #0]
+	LDR r1, =num1
+	LDR r0, [r1]
+	MOV r7, r0
 
 	LDR r0, =prompt2
 	BL printf
 
 	LDR r0, =input
-	LDR r1, =num
+	LDR r1, =num2
 	BL scanf
 	
-	LDR r1, =num
-	LDR r6, [r1, #0]
+	LDR r1, =num2
+	LDR r6, [r1]
 	
 	MOV r1, r7
 	MOV r2, r6
@@ -41,4 +42,5 @@ data:
 	prompt2: .asciz "Now enter an exponent:\n"
 	input: .asciz "%d"
 	output: .asciz "The result is %d and %d\n"
-	num: .word 0
+	num1: .word 0
+	num2: .word 0
