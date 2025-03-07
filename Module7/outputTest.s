@@ -15,6 +15,7 @@ main:
 	LDR r0, =num1
 	LDR r0, [r0]
 	MOV r5, r0
+	MOV r7, r0
 
 	LDR r0, =prompt2
 	BL printf
@@ -27,11 +28,9 @@ main:
 	LDR r0, [r0]
 	MOV r6, r0
 
-	MOV r7, r5
-
 	StartLoop:
-		CMP r0, r6
-		BGE EndLoop
+		CMP r6, #1
+		BLE EndLoop
 
 		MUL r7, r7, r5
 		SUB r6, r6, #1		
