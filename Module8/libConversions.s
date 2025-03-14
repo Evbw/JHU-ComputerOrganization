@@ -26,13 +26,16 @@ kph:
 	SUB sp, sp, #4
 	STR lr, [sp, #0]
 
-	BL miles2kilometer
-	BL __aeabi_idiv
+	MOV r2, r0
+	LDR r1, [r1]
+	LDR r0, =value
+	BL printf
 
 	LDR lr, [sp, #0]
 	ADD sp, sp, #4
 	MOV pc, lr
 .data
+	value: .asciz "kphr1 is %d and kphr0 is %d\n"
 
 #End kph
 
@@ -55,7 +58,7 @@ CToF:
 #End CToF
 
 .text
-InchestToFt:
+InchesToFt:
 	SUB sp, sp, #4
 	STR lr, [sp, #0]
 
