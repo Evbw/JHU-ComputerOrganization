@@ -14,17 +14,14 @@ main:
 
 	LDR r0, =num
 	LDR r0, [r0]
-	MOV r1, #2
-	MOV r2, #3
-	MOV r3, #4
 
 	CMP r0, #1
 	BLE m2k
-	CMP r0, r1
+	CMP r0, #2
 	BEQ kphour
-	CMP r0, r2
+	CMP r0, #3
 	BEQ ctf
-	CMP r0, r3
+	CMP r0, #4
 	BGE itf
 
 	m2k:
@@ -62,8 +59,14 @@ main:
 		LDR r1, =num
 		BL scanf
 
-		LDR r0, =num
-		LDR r1, [r0]
+		LDR r1, =num
+		LDR r1, [r1]
+		MOV r2, r4
+
+		LDR r0, =kpHourTest
+		BL printf
+		MOV r0, r4
+
 		BL kph
 		MOV r1, r0
 		
@@ -74,7 +77,7 @@ main:
 
 	ctf:
 
-		LDR r0, =m2kPrompt
+		LDR r0, =ctfPrompt
 		BL printf
 		
 		LDR r0, =input
@@ -83,14 +86,17 @@ main:
 
 		LDR r0, =num
 		LDR r0, [r0]
-		BL miles2kilometer
+		BL CToF
 		MOV r1, r0
+
+		LDR r0, =ctfOutput
+		BL printf
 		
 		B EndProgram
 
 	itf:
 
-		LDR r0, =m2kPrompt
+		LDR r0, =itfPrompt
 		BL printf
 		
 		LDR r0, =input
@@ -99,11 +105,13 @@ main:
 
 		LDR r0, =num
 		LDR r0, [r0]
-		BL miles2kilometer
+		BL InchesToFt
 		MOV r1, r0
+
+		LDR r0, =itfOutput
+		BL printf
 		
 		B EndProgram
-
 	
 	EndProgram:
 
@@ -118,5 +126,10 @@ main:
 	kphPrompt1: .asciz "Please a number of miles:\n"
 	kphPrompt2: .asciz "Please enter a number of hours:\n"
 	kphOutput: .asciz "That is %d kph.\n"
+	ctfPrompt: .asciz "Please enter degrees Celsius to convert to Fahrenheit:\n"
+	ctfOutput: .asciz "That is %d degrees Fahrenheit.\n"
+	itfPrompt: .asciz "Please enter inches to convert to feet:\n"
+	itfOutput: .asciz "That is %d feet.\n"
+	kpHourTest: .asciz "The second is %d and the first is %d.\n"
 	input: .asciz "%d"
 	num: .word 0
