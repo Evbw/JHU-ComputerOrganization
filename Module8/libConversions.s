@@ -26,16 +26,39 @@ kph:
 	SUB sp, sp, #4
 	STR lr, [sp, #0]
 
-	MOV r2, r0
-	LDR r1, [r1]
-	LDR r0, =value
+	LDR r0, =kphPrompt1
 	BL printf
+
+	LDR r0, =input
+	LDR r1, =num
+	BL scanf
+
+	LDR r0, =num
+	LDR r4, [r0]
+
+	LDR r0, =kphPrompt2
+	BL printf
+
+	LDR r0, =input
+	LDR r1, =num
+	BL scanf
+	LDR r7, =num
+	LDR r7, [r7]
+
+	MOV r0, r4
+	BL miles2kilometer
+
+	MOV r1, r7
+	BL __aeabi_idiv
 
 	LDR lr, [sp, #0]
 	ADD sp, sp, #4
 	MOV pc, lr
 .data
-	value: .asciz "kphr1 is %d and kphr0 is %d\n"
+	kphPrompt1: .asciz "Please enter a number of miles:\n"
+	kphPrompt2: .asciz "Please enter a number of hours:\n"
+	input: .asciz "%d"
+	num: .word 0	
 
 #End kph
 

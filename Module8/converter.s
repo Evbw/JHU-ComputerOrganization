@@ -42,30 +42,6 @@ main:
 		B EndProgram
 
 	kphour:
-		LDR r0, =kphPrompt1
-		BL printf
-
-		LDR r0, =input
-		LDR r1, =num
-		BL scanf
-
-		LDR r0, =num
-		LDR r4, [r0]
-
-		LDR r0, =kphPrompt2
-		BL printf
-
-		LDR r0, =input
-		LDR r1, =num
-		BL scanf
-
-		LDR r1, =num
-		LDR r1, [r1]
-		MOV r2, r4
-
-		LDR r0, =kpHourTest
-		BL printf
-		MOV r0, r4
 
 		BL kph
 		MOV r1, r0
