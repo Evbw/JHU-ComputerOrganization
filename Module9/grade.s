@@ -46,6 +46,8 @@ main:
 		CMP r7, r0
 		BLT gradeB
 
+		MOV r2, r7
+		LDR r1, =name
 		LDR r0, =GradeA
 		BL printf
 		B EndProgram
@@ -55,6 +57,8 @@ main:
 		CMP r7, r0
 		BLT gradeC
 	
+		MOV r2, r7
+		LDR r1, =name
 		LDR r0, =GradeB
 		BL printf
 		B EndProgram
@@ -64,6 +68,8 @@ main:
 		CMP r7, r0
 		BLT gradeD
 
+		MOV r2, r7
+		LDR r1, =name
 		LDR r0, =GradeC
 		BL printf
 		B EndProgram
@@ -73,6 +79,8 @@ main:
 		CMP r7, r0
 		BLT gradeF
 
+		MOV r2, r7
+		LDR r1, =name
 		LDR r0, =GradeD
 		BL printf
 		B EndProgram
@@ -80,6 +88,8 @@ main:
 		MOV r0, #90
 		CMP r7, r0
 
+		MOV r2, r7
+		LDR r1, =name
 		LDR r0, =GradeF
 		BL printf
 		B EndProgram
