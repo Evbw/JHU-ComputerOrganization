@@ -53,7 +53,7 @@ main:
 		B EndProgram
 
 	gradeB:
-		MOV r0, #90
+		MOV r0, #80
 		CMP r7, r0
 		BLT gradeC
 	
@@ -64,7 +64,7 @@ main:
 		B EndProgram
 
 	gradeC:
-		MOV r0, #90
+		MOV r0, #70
 		CMP r7, r0
 		BLT gradeD
 
@@ -75,7 +75,7 @@ main:
 		B EndProgram
 
 	gradeD:
-		MOV r0, #90
+		MOV r0, #60
 		CMP r7, r0
 		BLT gradeF
 
@@ -85,8 +85,6 @@ main:
 		BL printf
 		B EndProgram
 	gradeF:
-		MOV r0, #90
-		CMP r7, r0
 
 		MOV r2, r7
 		LDR r1, =name
@@ -107,10 +105,10 @@ main:
 	gradeInput: .asciz "%d"
 	name: .space 100
 	grade: .word 0
-	GradeA: .asciz "%s got an A.\n"
-	GradeB: .asciz "%s got a B.\n"
-	GradeC: .asciz "%s got a C.\n"
-	GradeD: .asciz "%s got a D.\n"
-	GradeF: .asciz "%s got an F.\n"
+	GradeA: .asciz "%s got an A with %d.\n"
+	GradeB: .asciz "%s got a B with %d.\n"
+	GradeC: .asciz "%s got a C with %d.\n"
+	GradeD: .asciz "%s got a D with %d.\n"
+	GradeF: .asciz "%s got an F with %d.\n"
 	Invalid: .asciz "Grade must be between 0 and 100.\n"
 	
