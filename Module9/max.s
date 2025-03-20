@@ -68,9 +68,9 @@ main:
 	STR lr, [sp]
 
 	CMP r0, r1
+	MOVLT r0, r1
+	CMP r0, r2
 	MOVLT r0, r2
-	CMP r0, r3
-	MOVLT r0, r3
 
 	LDR lr, [sp]
 	ADD sp, sp, #4
