@@ -45,9 +45,9 @@ main:
 		BL __aeabi_idiv
 
 		MOV r2, r0
-		MUL r2, r2, r1
-		SUB r0, r0, r2
-		CMP r0, #0
+		MUL r2, r2, r4
+		SUB r2, r5, r2
+		CMP r2, #0
 		BEQ NotPrime
 
 		ADD r4, r4, #-1
