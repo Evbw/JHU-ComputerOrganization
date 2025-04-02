@@ -71,13 +71,14 @@ main:
 			B NarrowLoop
 		
 	Higher:
-		MOV r6, r5	
+		MOV r6, r5
+		ADD r6, r6, #1
 		ADD r0, r5, r7
 		MOV r1, #2
 		BL __aeabi_idiv
 		CMP r0, #0
 		ADDEQ r0, r0, #1
-		CMP r0, r7
+		CMP r0, r9
 		BEQ GreaterThan
 		MOV r3, r7
 		SUB r3, r3, #1
@@ -91,9 +92,7 @@ main:
 		ADD r0, r5, r6
 		MOV r1, #2
 		BL __aeabi_idiv
-		CMP r0, r9
-		SUBEQ r0, r0, #1
-		CMP r0, r6
+		CMP r7, r6
 		BEQ LessThan
 		MOV r3, r6
 		ADD r3, r3, #1
@@ -110,6 +109,7 @@ main:
 		LDR r0, =guessInput
 		LDR r1, =guessChar
 		BL scanf
+		MOV r1, r7
 
 		LDR r4, =guessChar
 		LDR r4, [r4]
@@ -126,12 +126,13 @@ main:
 		
 	LessThan:
 		MOV r3, r0
-		MOV r1, r7
+		MOV r1, r6
 		LDR r0, =lesserLie
 		BL printf
 		LDR r0, =guessInput
 		LDR r1, =guessChar
 		BL scanf
+		MOV r1, r6
 
 		LDR r4, =guessChar
 		LDR r4, [r4]
