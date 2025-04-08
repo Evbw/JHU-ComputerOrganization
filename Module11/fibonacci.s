@@ -2,10 +2,9 @@
 .global main
 
 main:
-	SUB sp, sp, #12
+	SUB sp, sp, #8
 	STR lr, [sp, #0]
-	STR r5, [sp, #4]
-	STR r6, [sp, #8]
+	STR r4, [sp, #4]
 
 	LDR r0, =prompt
 	BL printf
@@ -31,7 +30,7 @@ main:
 		BEQ Answer
 
 		MOV r1, #1
-		MOV r6, r4
+		MOV r0, r4
 		BL Fibo
 		MOV r1, r0
 
@@ -50,9 +49,8 @@ main:
 	End:
 
 	LDR lr, [sp, #0]
-	LDR r5, [sp, #4]
-	LDR r6, [sp, #8]
-	ADD sp, sp, #12
+	LDR r4, [sp, #4]
+	ADD sp, sp, #8
 	MOV pc, lr
 
 .data
@@ -63,30 +61,31 @@ main:
 	num: .word 0
 
 .text
-Fibo:
-	SUB sp, sp, #12
-	STR lr, [sp]
-	STR r4, [sp, #4]
-	STR r5, [sp, #8]
 
-	CMP r4, #1
+Fibo:
+	SUB sp, sp, #8
+	STR lr, [sp]
+	STR r1, [sp, #4]
+
+	CMP r0, #1
 	BLE Return
 
-	ADD r4, r4, #-1
-	BL Fibo
-	MOV r5, r0
+	MOV r1, r0
 
-	MOV r4, r6
-	ADD r4, r4, #-2
+	ADD r0, r0, #-1
 	BL Fibo
-	ADD r0, r0, r5
+	MOV r2, r0
+
+	MOV r0, r1
+	ADD r0, r0, #-2
+	BL Fibo
+	ADD r0, r0, r2
 
 	Return:
 	
 	LDR lr, [sp]
-	LDR r4, [sp, #4]
-	LDR r5, [sp, #8]
-	ADD sp, sp, #12
+	LDR r1, [sp, #4]
+	ADD sp, sp, #8
 	MOV pc, lr
 
 .data
