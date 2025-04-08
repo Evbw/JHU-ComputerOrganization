@@ -23,18 +23,10 @@ main:
 
 		CMP r4, #0
 		BLT Invalid		//Handle an instance when the input is less than the required value
-		MOVEQ r1, #0
-		BEQ Answer
 
-		CMP r4, #1
-		BEQ Answer
-
-		MOV r1, #1
 		MOV r0, r4
 		BL Fibo
 		MOV r1, r0
-
-	Answer:
 
 		LDR r0, =output
 		BL printf
@@ -67,8 +59,8 @@ Fibo:
 	STR lr, [sp]
 	STR r1, [sp, #4]
 
-	CMP r0, #1
-	BLE Return
+	CMP r0, #2
+	BLE BaseCase
 
 	MOV r1, r0
 
@@ -80,6 +72,11 @@ Fibo:
 	ADD r0, r0, #-2
 	BL Fibo
 	ADD r0, r0, r2
+
+	B Return
+
+	BaseCase:
+		MOV r0, #1
 
 	Return:
 	
