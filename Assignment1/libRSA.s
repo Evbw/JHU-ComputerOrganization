@@ -260,73 +260,77 @@ cpubexp:
 .text
 
 cprivexp:
-    // Push registers onto the stack
-    SUB sp, sp, #32
-    STR lr, [sp, #0]
-    STR r4, [sp, #4]
-    STR r5, [sp, #8]
-    STR r6, [sp, #12]
-    STR r8, [sp, #16]
-    STR r7, [sp, #20]
-    STR r2, [sp, #24]
-    STR r3, [sp, #28]
+ SUB sp, sp, #28
+	STR lr, [sp, #0]
+	STR r4, [sp, #4]
+	STR r5, [sp, #8]
+	STR r6, [sp, #12]
+	STR r7, [sp, #16]
+	STR r8, [sp, #20]
+	STR r9, [sp, #24]
 
-    // Inputs:
-    // r0 = e (public exponent)
-    // r1 = phi(n) (Euler's totient)
+	LDR r0, =prompt
+	BL printf
 
-    MOV r6, r0        // Backup e into r6
-    MOV r7, r1        // Backup phi(n) into r7
-    MOV r2, #1        // Initialize x = 1
+	LDR r0, =input
+	LDR r1, =num
+	BL scanf
 
-find_x:
-    // Calculate numerator: 1 + x * phi
-    MUL r3, r2, r7        // r3 = x * phi
-    ADD r3, r3, #1        // r3 = (x * phi) + 1
+	LDR r7, =input
+	LDR r7, [r7]
 
-    // Backup x before division
-    MOV r8, r2
+	LDR r0, =prompt2
+	BL printf
 
-    // Prepare for division
-    MOV r0, r3            // r0 = numerator
-    MOV r1, r6            // r1 = e
-    BL __aeabi_idiv       // Divide
+	LDR r0, =input
+	LDR r1, =num
+	BL scanf
 
-    // Restore x after division
-    MOV r2, r8
+	LDR r1, =input
+	LDR r1, [r1]
 
-    // Save quotient
-    MOV r4, r0            // r4 = quotient
+	MOV r0, r7
+	
+	MOV r6, r0
+	MOV r6, r1
 
-    // Recalculate numerator fresh
-    MUL r3, r2, r7        // r3 = x * phi
-    ADD r3, r3, #1        // r3 = (x * phi) + 1
+	MOV r2, #1
 
-    // Verify: quotient * e == (1 + x * phi)
-    MUL r5, r4, r6        // r5 = quotient * e
-    CMP r5, r3            // Compare
-    BEQ found             // If match, solution found
+findx:
 
-    // Increment x and loop again
-    ADD r2, r2, #1
-    B find_x
+	MUL r3, r2, r7
+	ADD r4, r3, #1
+
+	MOV r0, r4
+	MOV r1, r6
+	BL modulo
+
+	CMP r0, #0
+	BEQ found
+
+	Add r2, r2, #1
+	B findx
 
 found:
-    MOV r0, r4            // Move d into r0 for return
-    MOV r1, r2            // Move x value to r1 for return
+	MOV r0, r4
+	MOV r1, r6
+	BL __aeabi_idiv
 
-    // Pop registers and return
-    LDR lr, [sp, #0]
-    LDR r4, [sp, #4]
-    LDR r5, [sp, #8]
-    LDR r6, [sp, #12]
-    LDR r8, [sp, #16]
-    LDR r7, [sp, #20]
-    LDR r2, [sp, #24]
-    LDR r3, [sp, #28]
-    ADD sp, sp, #32
-    MOV pc, lr
+	MOV r1, r0
 
+	LDR r0, =output
+	BL printf
+	
+	LDR lr, [sp, #0]
+	LDR r4, [sp, #4]
+	LDR r5, [sp, #8]
+	LDR r6, [sp, #12]
+	LDR r7, [sp, #16]
+	LDR r8, [sp, #20]
+	STR r9, [sp, #24]
+	ADD sp, sp, #28
+	MOV pc, lr
+ 
 .data	
 
 //End cprivexp
