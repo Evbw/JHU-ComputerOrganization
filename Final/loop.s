@@ -16,12 +16,12 @@
 
 
 main:
-	SUB sp, sp #4		
+	SUB sp, sp, #4		
 	STR lr, [sp, #0]
 
 	MOV r4, #0		//Clear registers to assure accurate information
 	MOV r5, #0
-	MOV r6, #0
+	MOV r3, #0
 
 	LDR r0, =prompt		//Request user input
 	BL printf
@@ -35,22 +35,32 @@ main:
 		LDR r0, [r0]
 
 		CMP r0, #-1	//If the entered value is -1, end the program.
-		BEQ EndProgram
+		BEQ NoEntry
 
 		ADD r4, r4, #1	//Increase the counter.
 		ADD r5, r5, r0	//And add to the total.
 		B Loop		//Go back to the top of the loop.
 
-	EndProgram:
+	NoEntry:
+		CMP r4, #0
+		BEQ Later
+
 		MOV r0, r5
-		MOV r1, r3
+		MOV r1, r4
 		BL __aeabi_idiv
 		MOV r3, r0
 		MOV r1, r4
 		MOV r2, r5		
 
 	LDR r0, =output
-	BL printf		
+	BL printf
+	B EndProgram
+
+	Later:
+		LDR r0, =output2
+		BL printf
+
+	EndProgram:
 
 	LDR lr, [sp, #0]
 	ADD sp, sp, #4
@@ -61,3 +71,4 @@ main:
 	input: .asciz "%d"
 	num: .word 0
 	output: .asciz "%d numbers enter for a total of %d and an average of %d. Good job!\n"
+	output2: .asciz "I see you have better things to do. Later, dawg!\n"
