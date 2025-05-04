@@ -12,7 +12,7 @@
 	// Register dictionary
 	// r4 - counter
 	// r5 - total
-	// r6 - average
+	// r3 - average
 
 
 main:
@@ -27,7 +27,7 @@ main:
 	BL printf
 
 	Loop:
-		LDR r0, =input	//inside the loop.
+		LDR r0, =input	//And accept it inside the loop.
 		LDR r1, =num
 		BL scanf
 
@@ -37,10 +37,17 @@ main:
 		CMP r0, #-1	//If the entered value is -1, end the program.
 		BEQ EndProgram
 
+		ADD r4, r4, #1	//Increase the counter.
+		ADD r5, r5, r0	//And add to the total.
+		B Loop		//Go back to the top of the loop.
+
 	EndProgram:
+		MOV r0, r5
+		MOV r1, r3
+		BL __aeabi_idiv
+		MOV r3, r0
 		MOV r1, r4
-		MOV r2, r5
-		MOV r3, r6
+		MOV r2, r5		
 
 	LDR r0, =output
 	BL printf		
